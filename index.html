@@ -89,6 +89,28 @@
         .modal {
             transition: opacity 0.3s ease-in-out;
         }
+        
+        /* Анімація для фонових елементів */
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+        }
+        .animate-blob {
+            animation: blob 7s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+        }
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
@@ -179,22 +201,26 @@
                     </p>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center shadow-sm hover:shadow-md transition-shadow">
+                    <!-- Змінено: Прибрано hover:shadow-md transition-shadow -->
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center shadow-sm">
                         <i class="fas fa-bug text-3xl text-primary mb-2"></i>
                         <h4 class="font-bold">QA / Testing</h4>
                         <p class="text-sm text-gray-500 dark:text-gray-400">3 роки досвіду</p>
                     </div>
-                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center shadow-sm hover:shadow-md transition-shadow">
+                    <!-- Змінено: Прибрано hover:shadow-md transition-shadow -->
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center shadow-sm">
                         <i class="fas fa-microchip text-3xl text-primary mb-2"></i>
                         <h4 class="font-bold">Електроніка</h4>
                         <p class="text-sm text-gray-500 dark:text-gray-400">Магістр (в процесі)</p>
                     </div>
-                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center shadow-sm hover:shadow-md transition-shadow">
+                    <!-- Змінено: Прибрано hover:shadow-md transition-shadow -->
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center shadow-sm">
                         <i class="fas fa-code text-3xl text-primary mb-2"></i>
                         <h4 class="font-bold">Автоматизація</h4>
                         <p class="text-sm text-gray-500 dark:text-gray-400">Scripts & Tools</p>
                     </div>
-                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center shadow-sm hover:shadow-md transition-shadow">
+                    <!-- Змінено: Прибрано hover:shadow-md transition-shadow -->
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center shadow-sm">
                         <i class="fas fa-gamepad text-3xl text-primary mb-2"></i>
                         <h4 class="font-bold">Game Dev</h4>
                         <p class="text-sm text-gray-500 dark:text-gray-400">Gameloft</p>
@@ -518,7 +544,7 @@
     <section id="contacts" class="py-20 bg-gray-50 dark:bg-gray-900 transition-colors">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-center mb-8 fade-in-up">Зв'яжіться зі мною</h2>
-            <p class="text-gray-600 dark:text-gray-300 mb-12 fade-in-up">
+            <p class="text-gray-600 dark:text-gray-300 mb-12 fade-in-up text-center">
                 Відкритий до нових пропозицій та співпраці.
             </p>
             
@@ -547,7 +573,7 @@
             </div>
 
             <!-- Footer -->
-            <footer class="mt-20 pt-8 border-t border-gray-200 dark:border-gray-700 text-gray-500 text-sm">
+            <footer class="mt-20 pt-8 border-t border-gray-200 dark:border-gray-700 text-gray-500 text-sm text-center">
                 <p>&copy; 2025 Володимир Свищ. Всі права захищені.</p>
                 <div class="flex justify-center space-x-4 mt-4 text-xl">
                     <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-linkedin"></i></a>
@@ -571,8 +597,21 @@
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
         
+        // Встановлення початкового стану: Перевірка localStorage для збереження теми
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
         themeToggle.addEventListener('click', () => {
             html.classList.toggle('dark');
+            // Збереження теми в localStorage
+            if (html.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
         });
 
         // 2. Typing Effect
@@ -583,7 +622,8 @@
         let currentText = "";
         let letter = "";
 
-        (function type() {
+        // Використовуємо функцію для плавного друку та паузи
+        function type() {
             if (count === texts.length) {
                 count = 0;
             }
@@ -594,11 +634,30 @@
             if (letter.length === currentText.length) {
                 count++;
                 index = 0;
-                setTimeout(type, 2000); // Pause at end of word
+                // Пауза 2 секунди, потім стирання
+                setTimeout(erase, 2000); 
             } else {
+                // Швидкість друку
                 setTimeout(type, 100);
             }
-        })();
+        }
+        
+        function erase() {
+             letter = currentText.slice(0, --index);
+             textElement.textContent = letter;
+             
+             if (letter.length === 0) {
+                 // Починаємо друкувати наступне слово
+                 setTimeout(type, 500);
+             } else {
+                 // Швидкість стирання
+                 setTimeout(erase, 50);
+             }
+        }
+
+        // Запуск ефекту
+        setTimeout(type, 500);
+
 
         // 3. Scroll Animation (Intersection Observer)
         const observerOptions = {
