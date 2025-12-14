@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Резюме - Володимир Свищ</title>
+    <!-- Tailwind CSS (для стилів) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome (для іконок) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#3b82f6',
+                        dark: '#1e293b',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Кастомні анімації */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Анімація заповнення прогрес-барів */
+        .progress-bar-inner {
+            /* Переконаємося, що початкова ширина 0 для плавного заповнення */
+            width: 0;
+            transition: width 1.5s ease-out;
+        }
+        .skills-visible .progress-bar-inner {
+            /* Встановлюємо фінальну ширину після активації */
+            width: var(--progress-width);
+        }
+        
+        /* Анімація Пульсація для контактів */
+        @keyframes pulse-once {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 5px rgba(59, 130, 246, 0.4); }
+            100% { transform: scale(1); box-shadow: none; }
+        }
+        .contact-icon:hover {
+            animation: pulse-once 0.5s ease-in-out;
+        }
+
+
+        /* Ефект друкарської машинки */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-start infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Стилізація скролбару */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+
+        /* Стилі для модального вікна */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 font-sans">
+
+    <!-- Навігація -->
+    <nav class="fixed w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Логотип: Повернення до текстового "VS" -->
+                <div class="text-2xl font-bold text-primary">VS</div>
+                <!-- Кінець Логотипу -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Головна</a>
+                        <a href="#about" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Про мене</a>
+                        <a href="#experience" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Досвід</a>
+                        <a href="#skills" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Навички</a>
+                        <a href="#projects" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Проекти</a>
+                        <a href="#education" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Освіта</a>
+                        <a href="#contacts" class="hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors">Контакти</a>
+                    </div>
+                </div>
+                <!-- Кнопка теми -->
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-moon dark:hidden text-gray-600"></i>
+                    <i class="fas fa-sun hidden dark:block text-yellow-400"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Головна секція (Hero) -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
+        <!-- Декоративні елементи фону -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob dark:bg-blue-600"></div>
+        <div class="absolute top-20 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000 dark:bg-purple-600"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center relative z-10">
+            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 fade-in-up">
+                <h2 class="text-xl text-primary font-semibold mb-2">Вітаю, я</h2>
+                <h1 class="text-5xl md:text-6xl font-bold mb-4">Володимир Свищ</h1>
+                <h3 class="text-2xl md:text-3xl text-gray-600 dark:text-gray-300 mb-6">
+                    <span id="typing-text" class="typing-cursor"></span>
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400 mb-8 text-lg max-w-lg mx-auto md:mx-0">
+                    QA Engineer з 3-річним досвідом у Gameloft. Спеціалізуюся на тестуванні, автоматизації та електроніці.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#contacts" class="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-full font-medium transition-all transform hover:scale-105 shadow-lg">
+                        Зв'язатися
+                    </a>
+                    <a href="#experience" class="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full font-medium transition-all">
+                        Мій досвід
+                    </a>
+                </div>
+            </div>
+            <!-- Аватар -->
+            <div class="md:w-1/2 flex justify-center fade-in-up">
+                <div class="relative w-64 h-64 md:w-80 md:h-80">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full opacity-75 blur-lg"></div>
+                    <div class="relative w-full h-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl flex items-center justify-center aspect-square">
+                         <!-- Виправлено: class="w-full h-full object-cover object-center" - забезпечує заповнення без білих рамок -->
+                         <img src="https://i.postimg.cc/t4c7zbgK/photo-SV.jpg" alt="Володимир Свищ - QA Engineer" 
+                              class="w-full h-full object-cover object-center" 
+                              onerror="this.onerror=null;this.src='https://placehold.co/320x320/3b82f6/ffffff?text=VS';" 
+                         />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секція "Про мене" -->
+    <section id="about" class="py-20 bg-white dark:bg-gray-800 transition-colors">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 fade-in-up">Про мене</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center fade-in-up">
+                <div class="space-y-4">
+                    <p class="text-lg leading-relaxed">
+                        Я креативна людина, готова навчатися новому та вдосконалювати свої навички. Відповідальний та пунктуальний. Якщо стикаюся зі складним завданням, не заспокоюся, доки не вирішу його.
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        Зараз працюю на посаді <span class="text-primary font-bold">Game Assurance (GA)</span> у компанії Gameloft вже 3 роки. Маю досвід професійного використання Jira, Trello та інструментів автоматизації.
+                    </p>
+                    <!-- Виправлено: **англійською мовою** замінено на <strong>англійською мовою</strong>. -->
+                    <p class="text-lg leading-relaxed border-l-4 border-primary pl-4 py-1 bg-gray-50 dark:bg-gray-700/50 rounded-lg shadow-inner">
+                        <i class="fas fa-handshake mr-2 text-primary"></i> Досвідчений командний гравець, регулярно беру участь у робочих нарадах, вільно спілкуючись з іноземними колегами <strong>англійською мовою</strong>.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center shadow-sm hover:shadow-md transition-shadow">
+                        <i class="fas fa-bug text-3xl text-primary mb-2"></i>
+                        <h4 class="font-bold">QA / Testing</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">3 роки досвіду</p>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center shadow-sm hover:shadow-md transition-shadow">
+                        <i class="fas fa-microchip text-3xl text-primary mb-2"></i>
+                        <h4 class="font-bold">Електроніка</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Магістр (в процесі)</p>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center shadow-sm hover:shadow-md transition-shadow">
+                        <i class="fas fa-code text-3xl text-primary mb-2"></i>
+                        <h4 class="font-bold">Автоматизація</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Scripts & Tools</p>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-xl text-center shadow-sm hover:shadow-md transition-shadow">
+                        <i class="fas fa-gamepad text-3xl text-primary mb-2"></i>
+                        <h4 class="font-bold">Game Dev</h4>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Gameloft</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Досвід роботи (Timeline) -->
+    <section id="experience" class="py-20 bg-gray-50 dark:bg-gray-900 transition-colors">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-16 fade-in-up">Досвід роботи</h2>
+            
+            <div class="relative border-l-4 border-primary/30 ml-3 md:ml-6 space-y-12">
+                
+                <!-- Job 1 -->
+                <div class="relative pl-8 fade-in-up">
+                    <div class="absolute -left-3.5 top-1 h-7 w-7 rounded-full border-4 border-white dark:border-gray-900 bg-primary"></div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                        <div class="flex flex-wrap justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold text-primary">Game Assurance (GA)</h3>
+                            <span class="text-sm bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 px-3 py-1 rounded-full">2021 — Теперішній час</span>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-3">Gameloft</h4>
+                        <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-1">
+                            <li>Професійне тестування ігрових проектів та забезпечення якості продукту.</li>
+                            <li>Використання баг-трекінгових систем (Jira, Trello) та інструментів для автоматизації процесів.</li>
+                            <!-- Виправлено: **командна співпраця** та **спілкування англійською мовою** замінено на <strong>...</strong>. -->
+                            <li>Ефективна <strong>командна співпраця</strong> та <strong>спілкування англійською мовою</strong> з міжнародними колегами на робочих нарадах.</li>
+                            <li>Розробка та підтримка скриптів для автоматизації.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Job 2 -->
+                <div class="relative pl-8 fade-in-up">
+                    <div class="absolute -left-3.5 top-1 h-7 w-7 rounded-full border-4 border-white dark:border-gray-900 bg-gray-400"></div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                        <div class="flex flex-wrap justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold">Інструктор з плавання</h3>
+                            <span class="text-sm text-gray-500">Минулий досвід</span>
+                        </div>
+                        <h4 class="text-lg font-semibold mb-3">Sport Life</h4>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Навчання клієнтів плаванню, покращення техніки. Досвід роботи з іноземцями. Також виконував обов'язки судді на змаганнях.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Job 3 -->
+                <div class="relative pl-8 fade-in-up">
+                    <div class="absolute -left-3.5 top-1 h-7 w-7 rounded-full border-4 border-white dark:border-gray-900 bg-gray-400"></div>
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                        <div class="flex flex-wrap justify-between items-center mb-2">
+                            <h3 class="text-xl font-bold">Дизайнер меблів</h3>
+                            <span class="text-sm text-gray-500">Минулий досвід</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Створення та корегування креслень. Робота вимагала високої уваги до деталей та точності.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Секція: Проекти -->
+    <section id="projects" class="py-20 bg-white dark:bg-gray-800 transition-colors">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 fade-in-up">Ключові проекти та досягнення</h2>
+            
+            <div class="space-y-10">
+                
+                <!-- Project 1: Ультразвуковий пристрій -->
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md fade-in-up">
+                    <h3 class="text-xl font-bold text-primary mb-2 flex items-center">
+                        <i class="fas fa-wave-square mr-3"></i> Курсова робота: Ультразвуковий пристрій контролю переміщення
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-3">
+                        <strong>Тема:</strong> Розроблення ультразвукового пристрою контролю переміщення на основі інформаційно-обчислювальної платформи Arduino.
+                        <br>
+                        <strong>Роль:</strong> Розробка принципової схеми, моделювання роботи та тестування на базі Proteus.
+                    </p>
+                    <!-- Додано клас 'project-image' для JS обробки кліку -->
+                    <img src="https://i.postimg.cc/kgCFQxBf/image.png" alt="Схема ультразвукового пристрою в Proteus" class="project-image w-full max-w-lg mx-auto rounded-lg shadow-lg my-4 border border-gray-300 dark:border-gray-600 h-auto object-contain cursor-pointer transition-shadow hover:shadow-xl">
+                    <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 mt-3">
+                        Використані інструменти: 
+                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Proteus</span>
+                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Arduino IDE</span>
+                    </p>
+                </div>
+                
+                <!-- Project 2: Мережевий інтерфейс -->
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md fade-in-up">
+                    <h3 class="text-xl font-bold text-primary mb-2 flex items-center">
+                        <i class="fas fa-network-wired mr-3"></i> Лабораторна робота: Керування GPIO через мережевий інтерфейс
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-3">
+                        <strong>Опис:</strong> Практичний досвід роботи з апаратними портами (GPIO) та налагодження зв'язку через локальну мережу для віддаленого контролю.
+                    </p>
+                    <!-- Додано клас 'project-image' для JS обробки кліку -->
+                    <img src="https://i.postimg.cc/PJtTbVnh/image.png" alt="Керування GPIO портом через мережевий інтерфейс" class="project-image w-full max-w-lg mx-auto rounded-lg shadow-lg my-4 border border-gray-300 dark:border-gray-600 h-auto object-contain cursor-pointer transition-shadow hover:shadow-xl">
+                    <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 mt-3">
+                        Навички: 
+                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Налагодження мережі</span>
+                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Робота з мікроконтролерами</span>
+                    </p>
+                </div>
+
+                <!-- Project 3: Груповий металошукач (Додано третє фото) -->
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md fade-in-up">
+                    <h3 class="text-xl font-bold text-primary mb-2 flex items-center">
+                        <i class="fas fa-search mr-3"></i> Групова курсова: Розробка металошукача на Arduino
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-3">
+                        <strong>Опис:</strong> Груповий проект, спрямований на інтеграцію датчиків, програмування логіки та фінальну збірку функціонального пристрою.
+                        <br>
+                        <strong>Навички:</strong> Успішна командна робота, апаратна інтеграція (hardware integration), тестування фізичного прототипу.
+                    </p>
+                    <!-- Оновлені класи контейнера: flex-wrap md:flex-row забезпечить гарне відображення для трьох елементів -->
+                    <div class="flex flex-wrap justify-center items-center gap-4 my-4">
+                        <!-- Зображення 1: ОНОВЛЕНО ПОСИЛАННЯ -->
+                        <img src="https://i.postimg.cc/KY8THDXD/image.png" alt="Фото металошукача, частина 1" 
+                             class="project-image w-full max-w-xs md:w-[30%] h-auto rounded-lg shadow-lg border border-gray-300 dark:border-gray-600 object-contain cursor-pointer transition-shadow hover:shadow-xl">
+                        <!-- Зображення 2: w-full max-w-xs md:w-1/3 -->
+                        <img src="https://i.postimg.cc/tgTr6hc4/image.png" alt="Фото металошукача, частина 2" 
+                             class="project-image w-full max-w-xs md:w-[30%] h-auto rounded-lg shadow-lg border border-gray-300 dark:border-gray-600 object-contain cursor-pointer transition-shadow hover:shadow-xl">
+                        <!-- Зображення 3: w-full max-w-xs md:w-1/3 -->
+                        <img src="https://i.postimg.cc/J4TmCQZd/image.png" alt="Фото металошукача, частина 3" 
+                             class="project-image w-full max-w-xs md:w-[30%] h-auto rounded-lg shadow-lg border border-gray-300 dark:border-gray-600 object-contain cursor-pointer transition-shadow hover:shadow-xl">
+                    </div>
+                    <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 mt-3">
+                        Навички: 
+                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Командна робота</span>
+                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Hardware Integration</span>
+                        <span class="bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full text-xs">Фізичне тестування</span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Навички -->
+    <section id="skills" class="py-20 bg-gray-50 dark:bg-gray-900 transition-colors fade-in-up">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12">Навички</h2>
+            
+            <!-- ОСНОВНА СІТКА НАВИЧОК -->
+            <div class="grid md:grid-cols-2 gap-12">
+                
+                <!-- КОЛОНКА 1: Hard Skills (QA/Dev) -->
+                <div>
+                    <h3 class="text-xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-tools mr-3 text-primary"></i> Професійні навички (QA / Dev)
+                    </h3>
+                    <div class="space-y-6">
+                        <!-- Skill Item -->
+                        <div data-progress="90">
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Баг-трекінг та Документація (Jira, Trello)</span>
+                                <span class="text-primary font-bold">Advanced</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-primary h-2.5 rounded-full progress-bar-inner"></div>
+                            </div>
+                        </div>
+                         <!-- Skill Item -->
+                         <div data-progress="70">
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">QA Automation Tools / Scripts</span>
+                                <span class="text-primary font-bold">Intermediate</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-primary h-2.5 rounded-full progress-bar-inner"></div>
+                            </div>
+                        </div>
+                        <!-- Skill Item -->
+                        <div data-progress="45">
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">C# / C++ (Базовий рівень)</span>
+                                <span class="text-primary font-bold">Basic</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-primary h-2.5 rounded-full progress-bar-inner"></div>
+                            </div>
+                        </div>
+                        <!-- Skill Item -->
+                        <div data-progress="60">
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Adobe (Photoshop, Illustrator)</span>
+                                <span class="text-primary font-bold">Intermediate</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-primary h-2.5 rounded-full progress-bar-inner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- КОЛОНКА 2: Electronics / CAD Skills -->
+                <div id="electronics-skills">
+                    <h3 class="text-xl font-semibold mb-6 flex items-center">
+                        <i class="fas fa-microchip mr-3 text-primary"></i> Програмне забезпечення (Електроніка / САПР)
+                    </h3>
+                    
+                    <!-- Використання прогрес-барів для програмного забезпечення -->
+                    <div class="space-y-6">
+                        <div data-progress="85">
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">SolidWorks (3D-моделювання/креслення)</span>
+                                <span class="text-primary font-bold">Advanced</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-primary h-2.5 rounded-full progress-bar-inner"></div>
+                            </div>
+                        </div>
+                        <div data-progress="75">
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Proteus / Altium Designer (Проектування схем)</span>
+                                <span class="text-primary font-bold">Intermediate</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-primary h-2.5 rounded-full progress-bar-inner"></div>
+                            </div>
+                        </div>
+                        <div data-progress="65">
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">MathCAD (Математичне моделювання)</span>
+                                <span class="text-primary font-bold">Intermediate</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="bg-primary h-2.5 rounded-full progress-bar-inner"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Окрема секція для Soft Skills, що займає повну ширину, щоб виправити зміщення -->
+            <div class="mt-12 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <h3 class="text-xl font-semibold mb-4 flex items-center justify-center">
+                    <i class="fas fa-language mr-3 text-primary"></i> Мови та Софт скіли
+                </h3>
+                
+                <div class="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg text-center border-l-4 border-yellow-400">
+                        <span class="block font-bold">Українська</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Рідна</span>
+                    </div>
+                    <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg text-center border-l-4 border-blue-400">
+                        <span class="block font-bold">English</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">Intermediate (Спілкування на робочих колах)</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium whitespace-nowrap">Комунікабельність</span>
+                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium whitespace-nowrap">Відповідальність</span>
+                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium whitespace-nowrap">Пунктуальність</span>
+                    <span class="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm font-medium whitespace-nowrap">Увага до деталей</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Освіта -->
+    <section id="education" class="py-20 bg-white dark:bg-gray-800 transition-colors">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 fade-in-up">Освіта</h2>
+            <div class="space-y-6 fade-in-up">
+                
+                <!-- Магістр (активний, синій) -->
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
+                    <div class="p-4 bg-blue-100 dark:bg-blue-900 rounded-full text-primary">
+                        <i class="fas fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold">Національний університет «Львівська політехніка»</h3>
+                        <p class="text-primary font-medium">Магістр, Електроніка</p>
+                        <p class="text-sm text-gray-500 mt-1">Теперішній час</p>
+                    </div>
+                </div>
+
+                <!-- Бакалавр (завершений, ЗРОБЛЕНО ПОМІТНІШИМ) -->
+                <div class="bg-green-50 dark:bg-gray-700 p-6 rounded-xl shadow-lg border-l-4 border-green-500 flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
+                    <div class="p-4 bg-green-100 dark:bg-green-900 rounded-full text-green-700 dark:text-green-400">
+                        <i class="fas fa-award text-2xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100">Національний університет «Львівська політехніка»</h3>
+                        <p class="text-green-700 dark:text-green-400 font-medium">Бакалавр, Електроніка</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Завершено</p>
+                    </div>
+                </div>
+
+                <!-- Додаткова освіта QA (оновлено) -->
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
+                    <div class="p-4 bg-yellow-100 dark:bg-yellow-900 rounded-full text-yellow-600">
+                        <i class="fas fa-certificate text-2xl"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold">Курси та сертифікація QA</h3>
+                        <p class="text-gray-700 dark:text-gray-300 font-medium">Спеціалізація в тестуванні ПЗ</p>
+                        <ul class="list-disc list-inside text-sm text-gray-500 mt-2 space-y-1">
+                            <li>Курс "QA Fundamentals: Theory and Practice" (Udemy).</li>
+                            <li>Курс "Test Automation using Selenium WebDriver & Python" (Coursera).</li>
+                            <li>Самостійно вивчені основи: Життєвий цикл дефекту, Тестові сценарії, Принципи тестування.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакти -->
+    <section id="contacts" class="py-20 bg-gray-50 dark:bg-gray-900 transition-colors">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-8 fade-in-up">Зв'яжіться зі мною</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-12 fade-in-up">
+                Відкритий до нових пропозицій та співпраці.
+            </p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-8 fade-in-up">
+                <!-- Плейсхолдер Email (Збільшена анонімізація) -->
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center text-red-500 mb-3 contact-icon">
+                        <i class="fas fa-envelope text-2xl"></i>
+                    </div>
+                    <span class="font-medium">v****d***@gmail.com</span>
+                </div>
+                <!-- Плейсхолдер Телефон -->
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center text-green-500 mb-3 contact-icon">
+                        <i class="fas fa-phone text-2xl"></i>
+                    </div>
+                    <span class="font-medium">+380 98 *** ** 23</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-500 mb-3">
+                        <i class="fas fa-map-marker-alt text-2xl"></i>
+                    </div>
+                    <span class="font-medium">Львів, Україна</span>
+                    <span class="text-xs text-gray-500 dark:text-gray-400 mt-1">Народився: 14.02.2004</span>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="mt-20 pt-8 border-t border-gray-200 dark:border-gray-700 text-gray-500 text-sm">
+                <p>&copy; 2025 Володимир Свищ. Всі права захищені.</p>
+                <div class="flex justify-center space-x-4 mt-4 text-xl">
+                    <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-github"></i></a>
+                    <a href="#" class="hover:text-primary transition-colors"><i class="fab fa-instagram"></i></a>
+                </div>
+            </footer>
+        </div>
+    </section>
+
+    <!-- Модальне вікно для зображень (Lightbox) -->
+    <div id="image-modal" class="modal fixed inset-0 bg-black bg-opacity-90 z-[100] flex items-center justify-center opacity-0 pointer-events-none p-4" onclick="closeModal()">
+        <button class="absolute top-4 right-4 text-white text-3xl z-[101] hover:text-primary transition-colors" onclick="closeModal(event)">&times;</button>
+        <!-- Змінено max-w-full max-h-full на max-w-[90vw] max-h-[90vh] для примусового збільшення -->
+        <img id="modal-image" src="" alt="Збільшене зображення проекту" class="max-w-[90vw] max-h-[90vh] rounded-lg shadow-2xl transform scale-90 transition-transform duration-300" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // 1. Dark Mode Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+        });
+
+        // 2. Typing Effect
+        const textElement = document.getElementById('typing-text');
+        const texts = ["QA Engineer", "Electronics Master", "Game Tester"];
+        let count = 0;
+        let index = 0;
+        let currentText = "";
+        let letter = "";
+
+        (function type() {
+            if (count === texts.length) {
+                count = 0;
+            }
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+
+            textElement.textContent = letter;
+            if (letter.length === currentText.length) {
+                count++;
+                index = 0;
+                setTimeout(type, 2000); // Pause at end of word
+            } else {
+                setTimeout(type, 100);
+            }
+        })();
+
+        // 3. Scroll Animation (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        // Функція для активації заповнення прогрес-барів
+        function activateSkills(element) {
+            // Перевіряємо, чи навички вже активовано, щоб уникнути повторного запуску
+            if (element.classList.contains('skills-visible')) return;
+            
+            element.classList.add('skills-visible');
+            const bars = element.querySelectorAll('[data-progress]');
+            bars.forEach(barContainer => {
+                const percentage = barContainer.getAttribute('data-progress');
+                const innerBar = barContainer.querySelector('.progress-bar-inner');
+                if (innerBar) {
+                    // Виправлення: Встановлюємо змінну CSS для активації transition
+                    innerBar.style.setProperty('--progress-width', `${percentage}%`);
+                }
+            });
+        }
+
+        // Ініціалізація Intersection Observer
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Активація заповнення навичок, якщо це секція #skills
+                    if (entry.target.id === 'skills') {
+                        activateSkills(entry.target);
+                    } 
+                    
+                    // Припиняємо спостереження лише для fade-in-up анімації, якщо це не #skills
+                    if (entry.target.id !== 'skills') {
+                        observer.unobserve(entry.target); 
+                    }
+
+                }
+            });
+        }, observerOptions);
+
+        // Спостереження за всіма елементами з класом .fade-in-up
+        document.querySelectorAll('.fade-in-up').forEach((el) => {
+            observer.observe(el);
+        });
+        
+        // 4. Modal / Lightbox functionality
+        const modal = document.getElementById('image-modal');
+        const modalImage = document.getElementById('modal-image');
+        const projectImages = document.querySelectorAll('.project-image');
+
+        function openModal(src) {
+            modalImage.src = src;
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.classList.add('opacity-100', 'pointer-events-auto');
+            document.body.style.overflow = 'hidden'; // Заблокувати прокрутку
+            modalImage.classList.remove('scale-90');
+            modalImage.classList.add('scale-100');
+        }
+
+        function closeModal(event) {
+            // Запобігаємо закриттю, якщо клік був на самій картинці (але не на модальному фоні)
+            if (event && event.target === modalImage) return;
+
+            modal.classList.remove('opacity-100', 'pointer-events-auto');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'auto';
+            modalImage.classList.remove('scale-100');
+            modalImage.classList.add('scale-90');
+        }
+
+        projectImages.forEach(image => {
+            image.addEventListener('click', (e) => {
+                openModal(e.target.src);
+            });
+        });
+        
+        // Закриття модального вікна при натисканні Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('opacity-100')) {
+                closeModal();
+            }
+        });
+
+    </script>
+</body>
+</html>
