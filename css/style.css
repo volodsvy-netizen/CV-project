@@ -231,4 +231,27 @@ body {
     animation: explode-effect 0.8s forwards; /* Програти анімацію і зникнути */
     pointer-events: none; /* Щоб не можна було клікнути двічі */
 }
+/* --- Стилізація кнопки закриття у модальному вікні --- */
+#close-modal-btn {
+    display: inline-block;      /* Робить елемент блочним, щоб працювали розміри */
+    padding: 12px 30px;         /* Внутрішній простір (збільшує кнопку) */
+    margin-top: 20px;           /* Відступ від тексту зверху */
+    
+    background-color: var(--primary-color); /* Синій фон (береться з твоїх налаштувань) */
+    color: #ffffff;             /* Білий текст для контрасту */
+    
+    border: 2px solid var(--primary-color); /* Чітка рамка */
+    border-radius: 8px;         /* Трохи закруглені кути */
+    
+    font-weight: bold;          /* Жирний шрифт */
+    cursor: pointer;            /* Курсор змінюється на "руку" */
+    transition: all 0.3s ease;  /* Плавна анімація */
+}
+
+/* Ефект при наведенні мишкою */
+#close-modal-btn:hover {
+    background-color: transparent;    /* Фон стає прозорим */
+    color: var(--primary-color);      /* Текст стає синім */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Легка тінь */
+}
 
