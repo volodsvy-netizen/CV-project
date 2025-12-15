@@ -288,37 +288,39 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const bug = document.getElementById('qa-bug');
 
-    // Перевіряємо, чи жук взагалі знайдений
     if (bug) {
         
-        // Функція для випадкового переміщення
         function moveBugRandomly() {
             const windowHeight = window.innerHeight;
             const windowWidth = window.innerWidth;
             
-            // Генеруємо координати (віднімаємо 100px, щоб точно не виліз за екран)
+            // Генеруємо нові координати
             const randomTop = Math.floor(Math.random() * (windowHeight - 100));
             const randomLeft = Math.floor(Math.random() * (windowWidth - 100));
 
-            // Для діагностики можна глянути в консоль (F12), куди він стрибає
-            // console.log(`Bug moving to: Top ${randomTop}, Left ${randomLeft}`);
-
-            bug.style.position = 'fixed'; // Гарантуємо, що позиція фіксована
+            // ВАЖЛИВО: Скидаємо прив'язку до нижнього правого кута
+            bug.style.bottom = 'auto';
+            bug.style.right = 'auto';
+            
+            // Задаємо нову позицію
             bug.style.top = `${randomTop}px`;
             bug.style.left = `${randomLeft}px`;
         }
 
-        // Запускаємо рух кожні 3 секунди (зробив швидше, щоб ти точно помітив)
-        const bugInterval = setInterval(moveBugRandomly, 3000);
+        // Запускаємо рух кожні 2 секунди (швидше, щоб ти побачив)
+        const bugInterval = setInterval(moveBugRandomly, 2000);
 
-        // Клік
         bug.addEventListener('click', () => {
-            clearInterval(bugInterval); // Зупиняємо рух
-            alert("🐛 БАГ ЗЛОВЛЕНО!\n\nВітаю! Ти знайшов пасхалку.\nЯк QA Engineer, я фікшу баги миттєво! 😉");
-            bug.style.display = 'none'; // Ховаємо жука
+            clearInterval(bugInterval);
+            
+            // Спочатку ховаємо жука
+            bug.style.display = 'none';
+            
+            // Потім показуємо повідомлення (з невеликою затримкою, щоб браузер встиг сховати жука)
+            setTimeout(() => {
+                alert("🐛 БАГ ЗЛОВЛЕНО!\n\nВітаю! Ти знайшов пасхалку.\nЯк QA Engineer, я фікшу баги миттєво! 😉");
+            }, 100);
         });
         
-    } else {
-        console.error("Елемент 'qa-bug' не знайдено! Перевір HTML.");
     }
 });
