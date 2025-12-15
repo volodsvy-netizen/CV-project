@@ -182,7 +182,7 @@
                 <div class="relative w-64 h-64 md:w-80 md:h-80">
                     <div class="absolute inset-0 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-full opacity-75 blur-lg"></div>
                     <div class="relative w-full h-full bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl flex items-center justify-center aspect-square">
-                         <!-- Виправлено: class="w-full h-full object-cover object-center" - забезпечує заповнення без білих рамок -->
+                         <!--  -->
                          <img src="https://i.postimg.cc/t4c7zbgK/photo-SV.jpg" alt="Володимир Свищ - QA Engineer" 
                               class="w-full h-full object-cover object-center" 
                               onerror="this.onerror=null;this.src='https://placehold.co/320x320/3b82f6/ffffff?text=VS';" 
@@ -316,7 +316,7 @@
                         <br>
                         <strong data-translate="proj-role">Роль:</strong> <span data-translate="proj1-role-desc">Розробка принципової схеми, моделювання роботи та тестування на базі Proteus.</span>
                     </p>
-                    <!-- Додано клас 'project-image' для JS обробки кліку -->
+                    <!--  -->
                     <img src="https://i.postimg.cc/kgCFQxBf/image.png" alt="Схема ультразвукового пристрою в Proteus" class="project-image w-full max-w-lg mx-auto rounded-lg shadow-lg my-4 border border-gray-300 dark:border-gray-600 h-auto object-contain cursor-pointer transition-shadow hover:shadow-xl">
                     <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 mt-3">
                         <span data-translate="proj-tools">Використані інструменти:</span>
@@ -336,7 +336,7 @@
                     <p class="text-gray-600 dark:text-gray-300 mb-3">
                         <strong data-translate="proj-desc">Опис:</strong> <span data-translate="proj2-desc">Практичний досвід роботи з апаратними портами (GPIO) та налагодження зв\'язку через локальну мережу для віддаленого контролю.</span>
                     </p>
-                    <!-- Додано клас 'project-image' для JS обробки кліку -->
+                    <!--  -->
                     <img src="https://i.postimg.cc/PJtTbVnh/image.png" alt="Керування GPIO портом через мережевий інтерфейс" class="project-image w-full max-w-lg mx-auto rounded-lg shadow-lg my-4 border border-gray-300 dark:border-gray-600 h-auto object-contain cursor-pointer transition-shadow hover:shadow-xl">
                     <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 mt-3">
                         <span data-translate="proj-skills-title">Навички:</span> 
@@ -361,13 +361,13 @@
                     </p>
                     <!-- Оновлені класи контейнера: flex-wrap md:flex-row забезпечить гарне відображення для трьох елементів -->
                     <div class="flex flex-wrap justify-center items-center gap-4 my-4">
-                        <!-- Зображення 1: ОНОВЛЕНО ПОСИЛАННЯ -->
+                        <!--  -->
                         <img src="https://i.postimg.cc/KY8THDXD/image.png" alt="Фото металошукача, частина 1" 
                              class="project-image w-full max-w-xs md:w-[30%] h-auto rounded-lg shadow-lg border border-gray-300 dark:border-gray-600 object-contain cursor-pointer transition-shadow hover:shadow-xl">
-                        <!-- Зображення 2: w-full max-w-xs md:w-1/3 -->
+                        <!--  -->
                         <img src="https://i.postimg.cc/tgTr6hc4/image.png" alt="Фото металошукача, частина 2" 
                              class="project-image w-full max-w-xs md:w-[30%] h-auto rounded-lg shadow-lg border border-gray-300 dark:border-gray-600 object-contain cursor-pointer transition-shadow hover:shadow-xl">
-                        <!-- Зображення 3: w-full max-w-xs md:w-1/3 -->
+                        <!--  -->
                         <img src="https://i.postimg.cc/J4TmCQZd/image.png" alt="Фото металошукача, частина 3" 
                              class="project-image w-full max-w-xs md:w-[30%] h-auto rounded-lg shadow-lg border border-gray-300 dark:border-gray-600 object-contain cursor-pointer transition-shadow hover:shadow-xl">
                     </div>
@@ -519,8 +519,8 @@
             <h2 class="text-3xl font-bold text-center mb-12 fade-in-up" data-translate="education-title">Освіта</h2>
             <div class="space-y-6 fade-in-up">
                 
-                <!-- Магістр (активний, синій) -->
-                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
+                <!-- Магістр (активний, синій) - ДОДАНО СИНЄ ОБВЕДЕННЯ -->
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-lg border-l-4 border-primary flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
                     <div class="p-4 bg-blue-100 dark:bg-blue-900 rounded-full text-primary">
                         <i class="fas fa-graduation-cap text-2xl"></i>
                     </div>
@@ -531,7 +531,7 @@
                     </div>
                 </div>
 
-                <!-- Бакалавр (завершений, ЗРОБЛЕНО ПОМІТНІШИМ) -->
+                <!-- Бакалавр (завершений, зелений) -->
                 <div class="bg-green-50 dark:bg-gray-700 p-6 rounded-xl shadow-lg border-l-4 border-green-500 flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
                     <div class="p-4 bg-green-100 dark:bg-green-900 rounded-full text-green-700 dark:text-green-400">
                         <i class="fas fa-award text-2xl"></i>
@@ -543,15 +543,16 @@
                     </div>
                 </div>
 
-                <!-- Додаткова освіта QA (оновлено) -->
-                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
+                <!-- Додаткова освіта QA (оновлено) - ДОДАНО ПОМАРАНЧЕВЕ ОБВЕДЕННЯ + ОНОВЛЕНО КОЛІР ТЕКСТУ -->
+                <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-lg border-l-4 border-orange-500 flex flex-col md:flex-row gap-4 items-center md:items-start text-center md:text-left">
                     <div class="p-4 bg-yellow-100 dark:bg-yellow-900 rounded-full text-yellow-600">
                         <i class="fas fa-certificate text-2xl"></i>
                     </div>
                     <div class="flex-1">
                         <h3 class="text-xl font-bold" data-translate="edu3-title">Курси та сертифікація QA</h3>
                         <p class="text-gray-700 dark:text-gray-300 font-medium" data-translate="edu3-specialization">Спеціалізація в тестуванні ПЗ</p>
-                        <ul class="list-disc list-inside text-sm text-gray-500 mt-2 space-y-1">
+                        <!-- ОНОВЛЕНО КОЛІР СПИСКУ ДЛЯ КРАЩОЇ ПОМІТНОСТІ -->
+                        <ul class="list-disc list-inside text-sm text-gray-700 dark:text-gray-300 mt-2 space-y-1">
                             <li data-translate="edu3-course1">Курс "QA Fundamentals: Theory and Practice" (Udemy).</li>
                             <li data-translate="edu3-course2">Курс "Test Automation using Selenium WebDriver & Python" (Coursera).</li>
                             <li data-translate="edu3-fundamentals">Самостійно вивчені основи: Життєвий цикл дефекту, Тестові сценарії, Принципи тестування.</li>
