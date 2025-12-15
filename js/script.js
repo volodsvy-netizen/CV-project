@@ -283,40 +283,42 @@ document.addEventListener('keydown', (e) => {
 // -----------------------------------------------------------
 // 8. QA Bug Easter Egg (Логіка втечі та піймання жука)
 // -----------------------------------------------------------
-const bug = document.getElementById('qa-bug');
+/* --- Logic for QA Bug Easter Egg --- */
+document.addEventListener('DOMContentLoaded', function() {
+    
+    const bug = document.getElementById('qa-bug');
 
-// Перевіряємо, чи існує елемент на сторінці, щоб уникнути помилок
-if (bug) {
-    // Функція для випадкового переміщення жука
-    function moveBugRandomly() {
-        // Отримуємо розміри вікна
-        const windowHeight = window.innerHeight;
-        const windowWidth = window.innerWidth;
+    // Перевіряємо, чи жук взагалі знайдений
+    if (bug) {
+        
+        // Функція для випадкового переміщення
+        function moveBugRandomly() {
+            const windowHeight = window.innerHeight;
+            const windowWidth = window.innerWidth;
+            
+            // Генеруємо координати (віднімаємо 100px, щоб точно не виліз за екран)
+            const randomTop = Math.floor(Math.random() * (windowHeight - 100));
+            const randomLeft = Math.floor(Math.random() * (windowWidth - 100));
 
-        // Генеруємо випадкові координати (відступаємо 50px від країв)
-        const randomTop = Math.floor(Math.random() * (windowHeight - 50));
-        const randomLeft = Math.floor(Math.random() * (windowWidth - 50));
+            // Для діагностики можна глянути в консоль (F12), куди він стрибає
+            // console.log(`Bug moving to: Top ${randomTop}, Left ${randomLeft}`);
 
-        // Застосовуємо нові координати
-        bug.style.top = `${randomTop}px`;
-        bug.style.left = `${randomLeft}px`;
+            bug.style.position = 'fixed'; // Гарантуємо, що позиція фіксована
+            bug.style.top = `${randomTop}px`;
+            bug.style.left = `${randomLeft}px`;
+        }
+
+        // Запускаємо рух кожні 3 секунди (зробив швидше, щоб ти точно помітив)
+        const bugInterval = setInterval(moveBugRandomly, 3000);
+
+        // Клік
+        bug.addEventListener('click', () => {
+            clearInterval(bugInterval); // Зупиняємо рух
+            alert("🐛 БАГ ЗЛОВЛЕНО!\n\nВітаю! Ти знайшов пасхалку.\nЯк QA Engineer, я фікшу баги миттєво! 😉");
+            bug.style.display = 'none'; // Ховаємо жука
+        });
+        
+    } else {
+        console.error("Елемент 'qa-bug' не знайдено! Перевір HTML.");
     }
-
-    // Жук перебігає на нове місце кожні 5 секунд
-    const bugInterval = setInterval(moveBugRandomly, 5000);
-
-    // Подія при кліку на жука
-    bug.addEventListener('click', () => {
-        // Зупиняємо його рух
-        clearInterval(bugInterval);
-        
-        // Показуємо повідомлення
-        alert("🐛 БАГ ЗЛОВЛЕНО!\n\nВітаю! Ти знайшов пасхалку.\nЯк QA Engineer, я знаходжу баги ще швидше! 😉");
-        
-        // Жук "фікситься" (зникає)
-        bug.style.display = 'none';
-        
-        // Можна додати запис в консоль для рекрутерів, які люблять F12
-        console.log("Bug fixed by user! Good job.");
-    });
-}
+});
